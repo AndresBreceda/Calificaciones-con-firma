@@ -1,0 +1,90 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Captura de Calificaciones - EduGestión Pro{% endblock %}
+{% block page_title %}Captura de Calificaciones: Matemáticas Avanzadas{% endblock %}
+
+{% block content %}
+<div class="card" style="margin-bottom: var(--spacing-lg);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-lg);">
+        <div style="display: flex; gap: var(--spacing-lg);">
+            <div>
+                <p style="font-size: 12px; font-weight: 600; color: var(--on-surface-variant);">PERIODO</p>
+                <p style="font-weight: 500;">Semestre 2026-1</p>
+            </div>
+            <div>
+                <p style="font-size: 12px; font-weight: 600; color: var(--on-surface-variant);">SECCIÓN</p>
+                <p style="font-weight: 500;">A-101</p>
+            </div>
+            <div>
+                <p style="font-size: 12px; font-weight: 600; color: var(--on-surface-variant);">TIPO DE EVALUACIÓN</p>
+                <select class="input-field" style="padding: 4px 8px; margin-top: 4px;">
+                    <option>Parcial 1</option>
+                    <option>Parcial 2</option>
+                    <option>Final</option>
+                </select>
+            </div>
+        </div>
+        <div style="display: flex; gap: var(--spacing-md);">
+            <button class="btn btn-ghost">
+                <span class="material-symbols-outlined" style="margin-right: 8px; font-size: 18px;">cloud_download</span>
+                Exportar
+            </button>
+            <button class="btn btn-primary">
+                <span class="material-symbols-outlined" style="margin-right: 8px; font-size: 18px;">save</span>
+                Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+    <div class="data-table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 100px;">Matrícula</th>
+                    <th>Nombre del Estudiante</th>
+                    <th style="width: 120px;">Asistencia (%)</th>
+                    <th style="width: 120px;">Calificación</th>
+                    <th style="width: 200px;">Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>20240101</td>
+                    <td style="font-weight: 500;">Andrés García Martínez</td>
+                    <td>100%</td>
+                    <td><input type="number" class="input-field" value="9.5" style="width: 80px; text-align: center;"></td>
+                    <td><input type="text" class="input-field" placeholder="Opcional..."></td>
+                </tr>
+                <tr>
+                    <td>20240105</td>
+                    <td style="font-weight: 500;">Beatriz López Silva</td>
+                    <td>95%</td>
+                    <td><input type="number" class="input-field" value="8.0" style="width: 80px; text-align: center;"></td>
+                    <td><input type="text" class="input-field" placeholder="Opcional..."></td>
+                </tr>
+                <tr>
+                    <td>20240210</td>
+                    <td style="font-weight: 500;">Carlos Rodríguez Ruiz</td>
+                    <td>80%</td>
+                    <td><input type="number" class="input-field" value="7.2" style="width: 80px; text-align: center;"></td>
+                    <td><input type="text" class="input-field" placeholder="Opcional..."></td>
+                </tr>
+                <tr>
+                    <td>20240315</td>
+                    <td style="font-weight: 500;">Diana Pérez Mendoza</td>
+                    <td>100%</td>
+                    <td><input type="number" class="input-field" value="10.0" style="width: 80px; text-align: center;"></td>
+                    <td><input type="text" class="input-field" value="Excelente desempeño"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="margin-top: var(--spacing-lg); display: flex; justify-content: flex-end;">
+        <div style="text-align: right;">
+            <p style="font-size: 13px; color: var(--on-surface-variant);">Promedio de Sección: <b>8.7</b></p>
+            <p style="font-size: 13px; color: var(--on-surface-variant);">Estudiantes Registrados: <b>4 / 32</b></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

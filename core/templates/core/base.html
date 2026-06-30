@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EduGestión Pro{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    {% if not hide_layout %}
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand" style="margin-bottom: var(--spacing-xl);">
+                <h2 style="color: white; font-size: 1.5rem;">EduGestión <span style="color: var(--secondary-container);">Pro</span></h2>
+                <p style="font-size: 0.75rem; opacity: 0.7;">Sistema de Gestión Académica</p>
+            </div>
+            
+            <nav class="nav-menu" style="flex: 1;">
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: var(--spacing-sm);">
+                        <a href="{% url 'dashboard' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'dashboard' %} background: rgba(255,255,255,0.1); {% endif %}">
+                            <span class="material-symbols-outlined" style="margin-right: 12px;">dashboard</span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li style="margin-bottom: var(--spacing-sm);">
+                        <a href="{% url 'grade_entry' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'grade_entry' %} background: rgba(255,255,255,0.1); {% endif %}">
+                            <span class="material-symbols-outlined" style="margin-right: 12px;">grade</span>
+                            Calificaciones
+                        </a>
+                    </li>
+                    <li style="margin-bottom: var(--spacing-sm);">
+                        <a href="{% url 'digital_signature' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'digital_signature' %} background: rgba(255,255,255,0.1); {% endif %}">
+                            <span class="material-symbols-outlined" style="margin-right: 12px;">draw</span>
+                            Firmar Actas
+                        </a>
+                    </li>
+                    <li style="margin-bottom: var(--spacing-sm);">
+                        <a href="{% url 'user_management' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'user_management' %} background: rgba(255,255,255,0.1); {% endif %}">
+                            <span class="material-symbols-outlined" style="margin-right: 12px;">group</span>
+                            Usuarios
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="user-profile" style="padding-top: var(--spacing-lg); border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="display: flex; align-items: center;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--secondary); margin-right: 10px;"></div>
+                    <div>
+                        <p style="font-size: 0.85rem; font-weight: 600;">Dr. Smith</p>
+                        <p style="font-size: 0.7rem; opacity: 0.7;">Docente Senior</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div>
+                    <h1 style="font-size: 1.5rem;">{% block page_title %}Inicio{% endblock %}</h1>
+                </div>
+                <div style="display: flex; gap: var(--spacing-md);">
+                    <button class="btn btn-ghost">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <a href="{% url 'login' %}" class="btn btn-ghost">Cerrar Sesión</a>
+                </div>
+            </header>
+
+            <div class="fade-in">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    {% else %}
+        {% block standalone_content %}{% endblock %}
+    {% endif %}
+</body>
+</html>

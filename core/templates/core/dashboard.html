@@ -1,0 +1,106 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Dashboard - EduGestión Pro{% endblock %}
+{% block page_title %}Dashboard Docente{% endblock %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+    <div class="card">
+        <p style="font-size: 13px; color: var(--on-surface-variant); font-weight: 600;">ESTUDIANTES ACTIVOS</p>
+        <h3 style="font-size: 2rem; margin: 8px 0;">124</h3>
+        <p style="font-size: 12px; color: var(--success); font-weight: 600;">+4% desde el mes pasado</p>
+    </div>
+    <div class="card">
+        <p style="font-size: 13px; color: var(--on-surface-variant); font-weight: 600;">CURSOS ASIGNADOS</p>
+        <h3 style="font-size: 2rem; margin: 8px 0;">6</h3>
+        <p style="font-size: 12px; color: var(--on-surface-variant);">Semestre 2026-1</p>
+    </div>
+    <div class="card">
+        <p style="font-size: 13px; color: var(--on-surface-variant); font-weight: 600;">ACTAS PENDIENTES</p>
+        <h3 style="font-size: 2rem; margin: 8px 0; color: var(--warning);">2</h3>
+        <div class="badge badge-warning">Requiere Firma</div>
+    </div>
+    <div class="card">
+        <p style="font-size: 13px; color: var(--on-surface-variant); font-weight: 600;">PROMEDIO GENERAL</p>
+        <h3 style="font-size: 2rem; margin: 8px 0;">8.4</h3>
+        <p style="font-size: 12px; color: var(--on-surface-variant);">Escala 0-10</p>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--spacing-lg);">
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+            <h3 style="font-size: 1.1rem;">Cursos Actuales</h3>
+            <button class="btn btn-ghost" style="font-size: 12px;">Ver Todos</button>
+        </div>
+        
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Asignatura</th>
+                        <th>Sección</th>
+                        <th>Estudiantes</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 600;">Matemáticas Avanzadas</td>
+                        <td>A-101</td>
+                        <td>32</td>
+                        <td><span class="badge badge-success">En Curso</span></td>
+                        <td><a href="{% url 'grade_entry' %}" class="btn btn-ghost" style="padding: 4px 8px;">Entrar</a></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">Física de Partículas</td>
+                        <td>B-202</td>
+                        <td>28</td>
+                        <td><span class="badge badge-success">En Curso</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 8px;">Entrar</button></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">Cálculo Integral</td>
+                        <td>C-303</td>
+                        <td>40</td>
+                        <td><span class="badge badge-warning">Cerrando</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 8px;">Entrar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="font-size: 1.1rem; margin-bottom: var(--spacing-lg);">Actividad Reciente</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid var(--outline-variant);">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); margin-top: 6px;"></div>
+                <div>
+                    <p style="font-size: 14px; font-weight: 600;">Calificaciones Subidas</p>
+                    <p style="font-size: 12px; color: var(--on-surface-variant);">Curso: Matemáticas A-101</p>
+                    <p style="font-size: 11px; opacity: 0.6; margin-top: 4px;">Hace 2 horas</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid var(--outline-variant);">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--warning); margin-top: 6px;"></div>
+                <div>
+                    <p style="font-size: 14px; font-weight: 600;">Acta Pendiente de Firma</p>
+                    <p style="font-size: 12px; color: var(--on-surface-variant);">Curso: Cálculo Integral C-303</p>
+                    <p style="font-size: 11px; opacity: 0.6; margin-top: 4px;">Hace 5 horas</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success); margin-top: 6px;"></div>
+                <div>
+                    <p style="font-size: 14px; font-weight: 600;">Usuario Registrado</p>
+                    <p style="font-size: 12px; color: var(--on-surface-variant);">Nuevo estudiante en Física</p>
+                    <p style="font-size: 11px; opacity: 0.6; margin-top: 4px;">Ayer</p>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-ghost" style="width: 100%; margin-top: var(--spacing-lg);">Ver Completa</button>
+    </div>
+</div>
+{% endblock %}
