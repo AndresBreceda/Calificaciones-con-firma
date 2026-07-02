@@ -1,83 +1,52 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}EduGestión Pro{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    {% block extra_head %}{% endblock %}
+    <style>
+        :root {
+            --primary: #002045;
+            --secondary: #1a365d;
+            --surface: #ffffff;
+            --background: #f1f5f9;
+            --on-surface-variant: #64748b;
+            --outline-variant: #e2e8f0;
+            --radius-md: 8px;
+            --spacing-md: 12px;
+            --spacing-lg: 20px;
+        }
+        body { font-family: system-ui, sans-serif; background: var(--background); margin: 0; padding: 0; }
+        .app-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--primary); color: white; padding: var(--spacing-lg); display: flex; flex-direction: column; }
+        .main-content { flex: 1; padding: var(--spacing-lg); }
+        .card { background: var(--surface); padding: var(--spacing-lg); border-radius: var(--radius-md); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid var(--outline-variant); }
+        .btn { padding: 8px 16px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-ghost { background: transparent; border: 1px solid var(--outline-variant); color: #334155; }
+        .input-field { width: 100%; padding: 8px; border: 1px solid var(--outline-variant); border-radius: 6px; box-sizing: border-box; }
+        .table { width: 100%; border-collapse: collapse; margin-top: var(--spacing-md); }
+        .table th, .table td { padding: 12px; border-bottom: 1px solid var(--outline-variant); text-align: left; }
+        .table th { background: #f8fafc; color: var(--on-surface-variant); font-size: 13px; }
+        .badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    </style>
 </head>
 <body>
-    {% if not hide_layout %}
     <div class="app-container">
         <aside class="sidebar">
-            <div class="brand" style="margin-bottom: var(--spacing-xl);">
-                <h2 style="color: white; font-size: 1.5rem;">EduGestión <span style="color: var(--secondary-container);">Pro</span></h2>
-                <p style="font-size: 0.75rem; opacity: 0.7;">Sistema de Gestión Académica</p>
-            </div>
-            
-            <nav class="nav-menu" style="flex: 1;">
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: var(--spacing-sm);">
-                        <a href="{% url 'dashboard' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'dashboard' %} background: rgba(255,255,255,0.1); {% endif %}">
-                            <span class="material-symbols-outlined" style="margin-right: 12px;">dashboard</span>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li style="margin-bottom: var(--spacing-sm);">
-                        <a href="{% url 'grade_entry' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'grade_entry' %} background: rgba(255,255,255,0.1); {% endif %}">
-                            <span class="material-symbols-outlined" style="margin-right: 12px;">grade</span>
-                            Calificaciones
-                        </a>
-                    </li>
-                    <li style="margin-bottom: var(--spacing-sm);">
-                        <a href="{% url 'digital_signature' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'digital_signature' %} background: rgba(255,255,255,0.1); {% endif %}">
-                            <span class="material-symbols-outlined" style="margin-right: 12px;">draw</span>
-                            Firmar Actas
-                        </a>
-                    </li>
-                    <li style="margin-bottom: var(--spacing-sm);">
-                        <a href="{% url 'user_management' %}" style="color: white; text-decoration: none; display: flex; align-items: center; padding: 10px; border-radius: var(--radius-sm); {% if request.resolver_match.url_name == 'user_management' %} background: rgba(255,255,255,0.1); {% endif %}">
-                            <span class="material-symbols-outlined" style="margin-right: 12px;">group</span>
-                            Usuarios
-                        </a>
-                    </li>
-                </ul>
+            <h2>EduGestión <span style="color: #60a5fa;">Pro</span></h2>
+            <nav style="flex: 1; margin-top: 20px;">
+                <a href="{% url 'dashboard' %}" style="color: white; display: block; padding: 10px 0; text-decoration: none;">Dashboard</a>
             </nav>
-            
-            <div class="user-profile" style="padding-top: var(--spacing-lg); border-top: 1px solid rgba(255,255,255,0.1);">
-                <div style="display: flex; align-items: center;">
-                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--secondary); margin-right: 10px;"></div>
-                    <div>
-                        <p style="font-size: 0.85rem; font-weight: 600;">Dr. Smith</p>
-                        <p style="font-size: 0.7rem; opacity: 0.7;">Docente Senior</p>
-                    </div>
-                </div>
+            <div>
+                <p style="font-size: 13px; margin: 0;">Usuario: {{ request.user.get_full_name }}</p>
             </div>
         </aside>
-
         <main class="main-content">
-            <header class="top-bar">
-                <div>
-                    <h1 style="font-size: 1.5rem;">{% block page_title %}Inicio{% endblock %}</h1>
-                </div>
-                <div style="display: flex; gap: var(--spacing-md);">
-                    <button class="btn btn-ghost">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </button>
-                    <a href="{% url 'login' %}" class="btn btn-ghost">Cerrar Sesión</a>
-                </div>
-            </header>
-
-            <div class="fade-in">
-                {% block content %}{% endblock %}
-            </div>
+            <h1 style="font-size: 1.5rem; margin-bottom: var(--spacing-lg);">{% block page_title %}{% endblock %}</h1>
+            {% block content %}{% endblock %}
         </main>
     </div>
-    {% else %}
-        {% block standalone_content %}{% endblock %}
-    {% endif %}
 </body>
 </html>

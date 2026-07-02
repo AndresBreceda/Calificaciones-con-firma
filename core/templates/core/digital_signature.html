@@ -1,94 +1,46 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Firma de Acta - EduGestión Pro{% endblock %}
-{% block page_title %}Firma Digital de Acta Académica{% endblock %}
+{% block title %}Firma Digital - EduGestión Pro{% endblock %}
+{% block page_title %}Cierre de Actas Oficiales{% endblock %}
 
 {% block content %}
-<div style="display: grid; grid-template-columns: 1fr 350px; gap: var(--spacing-lg);">
-    <div class="card" style="min-height: 600px; display: flex; flex-direction: column;">
-        <div style="background: #f1f5f9; padding: 40px; border-radius: var(--radius-sm); flex: 1; border: 1px dashed var(--outline-variant);">
-            <!-- Mock Document Preview -->
-            <div style="background: white; max-width: 500px; margin: 0 auto; box-shadow: var(--shadow-lg); padding: 40px; font-family: serif; color: #1e293b;">
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <h2 style="font-size: 1.2rem; text-transform: uppercase;">Acta de Calificaciones</h2>
-                    <p style="font-size: 0.9rem;">Institución de Excelencia Educativa</p>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; margin-bottom: 20px;">
-                    <p><b>Asignatura:</b> Matemáticas Avanzadas</p>
-                    <p><b>Sección:</b> A-101</p>
-                    <p><b>Periodo:</b> 2026-1</p>
-                    <p><b>Docente:</b> Arthur Smith</p>
-                </div>
-
-                <table style="width: 100%; border-collapse: collapse; font-size: 0.75rem; margin-bottom: 30px;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid #000;">
-                            <th style="text-align: left; padding: 4px;">Matrícula</th>
-                            <th style="text-align: left; padding: 4px;">Estudiante</th>
-                            <th style="text-align: center; padding: 4px;">Final</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 4px;">20240101</td>
-                            <td style="padding: 4px;">García Martínez, Andrés</td>
-                            <td style="text-align: center; padding: 4px;">9.5</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 4px;">20240105</td>
-                            <td style="padding: 4px;">López Silva, Beatriz</td>
-                            <td style="text-align: center; padding: 4px;">8.0</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 4px;">20240210</td>
-                            <td style="padding: 4px;">Rodríguez Ruiz, Carlos</td>
-                            <td style="text-align: center; padding: 4px;">7.2</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 4px;">20240315</td>
-                            <td style="padding: 4px;">Pérez Mendoza, Diana</td>
-                            <td style="text-align: center; padding: 4px;">10.0</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div style="margin-top: 50px; font-size: 0.7rem; color: #64748b;">
-                    <p>Este documento es una representación digital del acta oficial.</p>
-                    <p>Referencia: ACTA-2026-001-MA</p>
-                </div>
-            </div>
+<div style="display: grid; grid-template-columns: 1fr 380px; gap: var(--spacing-lg);">
+    <div class="card">
+        <h3>Términos del Cierre Digital</h3>
+        <p>Al confirmar tu firma mediante la doble verificación, la edición de calificaciones quedará deshabilitada y los datos se publicarán de forma oficial en los portales de los estudiantes.</p>
+        <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #2563eb; margin-top: 20px;">
+            <b>Curso a Cerrar:</b> {{ curso.nombre }} <br>
+            <b>Sección asignada:</b> {{ curso.seccion }}
         </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
-        <div class="card">
-            <h3 style="font-size: 1rem; margin-bottom: var(--spacing-md);">Panel de Firma</h3>
-            <p style="font-size: 13px; color: var(--on-surface-variant); margin-bottom: var(--spacing-lg);">Para completar el proceso de cierre de actas, por favor ingrese su PIN de seguridad y firme en el recuadro inferior.</p>
+    <div class="card">
+        <h3 style="margin-bottom: 15px;">Panel de Validación</h3>
+        
+        <form method="POST" action="{% url 'digital_signature' curso.id %}">
+            {% csrf_token %}
             
-            <div class="input-group">
-                <label>PIN de Seguridad</label>
-                <input type="password" class="input-field" placeholder="••••">
+            {% if error %}
+                <div style="background: #fee2e2; color: #991b1b; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 13px;">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <div style="margin-bottom: var(--spacing-md);">
+                <label style="font-size: 13px; font-weight: 600; color: #475569;">1. Código de Verificación Dinámico</label>
+                <input type="text" name="codigo_sms" class="input-field" placeholder="000000" required style="text-align: center; font-size: 18px; letter-spacing: 4px; margin-top: 6px;">
+                <p style="font-size: 11px; color: #16a34a; margin: 4px 0 0 0;">Simulación de envío de token: <b>{{ codigo_simulado }}</b></p>
             </div>
 
-            <div style="border: 1px solid var(--outline-variant); border-radius: var(--radius-sm); height: 150px; background: #fff; margin-bottom: var(--spacing-md); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                <p style="color: var(--outline-variant); font-size: 12px;">Dibuje su firma aquí</p>
-                <canvas style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: crosshair;"></canvas>
+            <div style="margin-bottom: var(--spacing-lg);">
+                <label style="font-size: 13px; font-weight: 600; color: #475569;">2. PIN o Contraseña de Seguridad</label>
+                <input type="password" name="pin" class="input-field" placeholder="••••" required style="text-align: center; font-size: 18px; margin-top: 6px;">
             </div>
 
-            <div style="display: flex; gap: 8px;">
-                <button class="btn btn-ghost" style="flex: 1;">Limpiar</button>
-                <button class="btn btn-primary" style="flex: 2;">Firmar Acta</button>
-            </div>
-        </div>
-
-        <div class="card" style="background: var(--success-bg); border-color: var(--success);">
-            <div style="display: flex; gap: 12px; align-items: center; color: var(--success);">
-                <span class="material-symbols-outlined">verified</span>
-                <p style="font-size: 13px; font-weight: 600;">Cierre Seguro</p>
-            </div>
-            <p style="font-size: 12px; color: var(--success); margin-top: 8px;">Una vez firmada, el acta será bloqueada para futuras ediciones y se enviará a servicios escolares.</p>
-        </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; background: #059669;">
+                Verificar Identidad y Firmar
+            </button>
+        </form>
     </div>
 </div>
 {% endblock %}
